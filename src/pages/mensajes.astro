@@ -1,0 +1,9 @@
+---
+// Página privada: muro de mensajes solo para la quinceañera
+import Layout from '../layouts/Layout.astro'
+import MessageWall from '../components/MessageWall.tsx'
+---
+
+<Layout title="Mensajes para Ana Valeria" description="Mensajes privados de tus invitados">
+	<MessageWall client:load />
+</Layout>

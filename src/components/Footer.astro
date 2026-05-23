@@ -1,0 +1,30 @@
+---
+// Footer: agradecimiento, crédito, copyright y control de música
+import MusicToggle from './MusicToggle.tsx'
+---
+
+<footer id="footer" class="py-14 pb-24 px-6 text-center" style="background: linear-gradient(180deg, #1a2e3d 0%, #0f1c26 100%);">
+	<p class="font-serif text-lg text-white/80 italic max-w-md mx-auto">
+		Gracias por ser parte de este momento tan especial
+	</p>
+
+	<!-- Mariposa separadora -->
+	<svg class="w-6 h-6 mx-auto text-gold-400/40 my-6" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+		<path d="M50 50 C30 20, 10 20, 10 45 C10 60, 30 70, 50 50 Z" fill="currentColor" opacity="0.8"/>
+		<path d="M50 50 C70 20, 90 20, 90 45 C90 60, 70 70, 50 50 Z" fill="currentColor" opacity="0.8"/>
+		<path d="M50 50 C35 60, 20 80, 25 90 C30 95, 45 80, 50 50 Z" fill="currentColor" opacity="0.6"/>
+		<path d="M50 50 C65 60, 80 80, 75 90 C70 95, 55 80, 50 50 Z" fill="currentColor" opacity="0.6"/>
+	</svg>
+
+	<p class="font-sans text-xs text-white/40">
+		by <a href="https://markidev.com" target="_blank" rel="noopener noreferrer" class="text-gold-400/60 hover:text-gold-400 transition-colors">MarkiDev</a>
+	</p>
+	<p class="font-sans text-xs text-white/30 mt-1">
+		© 2026
+	</p>
+
+	<!-- Control de música -->
+	<div class="mt-4">
+		<MusicToggle client:load />
+	</div>
+</footer>

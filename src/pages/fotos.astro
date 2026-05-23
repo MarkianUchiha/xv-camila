@@ -1,0 +1,9 @@
+---
+// Página privada: galería de fotos subidas por invitados
+import Layout from '../layouts/Layout.astro'
+import PhotoGallery from '../components/PhotoGallery.tsx'
+---
+
+<Layout title="Fotos del Evento | XV Ana Valeria" description="Fotos subidas por los invitados">
+	<PhotoGallery client:load />
+</Layout>

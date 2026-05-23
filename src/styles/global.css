@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+/* === Tema personalizado con Tailwind CSS 4 === */
+@theme {
+	/* Colores del proyecto */
+	--color-primary-50: #f0f8ff;
+	--color-primary-100: #e0f0fe;
+	--color-primary-200: #bae0fd;
+	--color-primary-300: #87ceeb;
+	--color-primary-400: #5bbcd6;
+	--color-primary-500: #38a3c3;
+	--color-primary-600: #2a83a4;
+	--color-primary-700: #246a85;
+	--color-primary-800: #23586e;
+	--color-primary-900: #214a5c;
+
+	--color-gold-50: #fdf8e8;
+	--color-gold-100: #f9eec5;
+	--color-gold-200: #f3dc8b;
+	--color-gold-300: #ecc94b;
+	--color-gold-400: #d4af37;
+	--color-gold-500: #c9a84c;
+	--color-gold-600: #b8860b;
+	--color-gold-700: #946b08;
+	--color-gold-800: #7a570d;
+	--color-gold-900: #674811;
+
+	/* Fuentes */
+	--font-serif: 'Playfair Display', Georgia, serif;
+	--font-sans: 'Inter', system-ui, sans-serif;
+	--font-display: 'Montserrat', 'Inter', sans-serif;
+}
+
+/* === Glassmorphismo - utilidad reutilizable === */
+.glass {
+	background: rgba(255, 255, 255, 0.15);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	border-radius: 16px;
+	box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+}
+
+/* Variante sutil - para fondos con imagen (menos opacidad) */
+.glass-subtle {
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 16px;
+	box-shadow: 0 4px 16px rgba(31, 38, 135, 0.1);
+}
+
+/* Variante fuerte - para fondos claros (más opacidad) */
+.glass-strong {
+	background: rgba(255, 255, 255, 0.55);
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	border-radius: 16px;
+	box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
+}
+
+/* === Scroll Reveal === */
+.reveal {
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal.revealed {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Stagger delays para cards */
+.reveal[data-delay="1"] { transition-delay: 0.1s; }
+.reveal[data-delay="2"] { transition-delay: 0.2s; }
+.reveal[data-delay="3"] { transition-delay: 0.3s; }
+.reveal[data-delay="4"] { transition-delay: 0.4s; }
+
+/* Respetar preferencia de reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+	.reveal {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}
+
+/* === Smooth scroll global === */
+html {
+	scroll-behavior: smooth;
+}
+
+/* === Ocultar scrollbar en el bottom nav === */
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+}
+.scrollbar-hide {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}

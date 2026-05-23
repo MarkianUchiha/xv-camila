@@ -1,0 +1,57 @@
+---
+// Sección Hero: nombre, subtítulo, countdown y mariposas flotantes
+import Butterflies from './Butterflies.astro'
+import Countdown from './Countdown.tsx'
+---
+
+<section
+	id="hero"
+	class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
+	style="min-height: 100svh;"
+>
+	<!-- Fondo: gradiente azul cielo a blanco -->
+	<div
+		class="absolute inset-0 -z-10"
+		style="background: linear-gradient(180deg, #E0F0FE 0%, #EBF5FF 40%, #FFFFFF 100%);"
+	>
+	</div>
+
+	<!-- Mariposas flotantes -->
+	<Butterflies />
+
+	<!-- Contenido central -->
+	<div class="relative z-10 text-center px-6">
+		<p class="font-display text-xs md:text-sm tracking-[0.35em] text-gold-500 uppercase mb-4">
+			Mis Quince Años
+		</p>
+
+		<h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-primary-800 italic leading-tight">
+			Ana Valeria
+		</h1>
+
+		<p class="font-sans text-sm md:text-base text-primary-600/80 mt-3">
+			16 de Mayo de 2026
+		</p>
+
+		<!-- Countdown -->
+		<div class="mt-10">
+			<Countdown client:load />
+		</div>
+	</div>
+
+	<!-- Indicador de scroll -->
+	<div class="absolute bottom-8 z-10 flex flex-col items-center gap-2 animate-bounce">
+		<span class="text-xs font-display tracking-widest text-primary-500/60 uppercase">
+			Desliza
+		</span>
+		<svg
+			class="w-5 h-5 text-primary-400/50"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			viewBox="0 0 24 24"
+		>
+			<path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+		</svg>
+	</div>
+</section>
