@@ -1,48 +1,56 @@
 ---
-// Sección Galería: grid de fotos con lightbox nativo usando <dialog>
+// Sección Galería: carrusel con scroll-snap nativo + lightbox usando <dialog>
 import { Image } from 'astro:assets'
 
-// Importar todas las fotos de la carpeta gallery
-import vale1 from '../assets/gallery/Vale_1.jpg'
-import vale2 from '../assets/gallery/Vale_2.jpg'
-import vale3 from '../assets/gallery/Vale_3.jpg'
-import vale4 from '../assets/gallery/VALE_4.jpg'
-import vale5 from '../assets/gallery/Vale_5.jpg'
-import vale6 from '../assets/gallery/Vale_6.jpg'
-import vale7 from '../assets/gallery/Vale_7.jpg'
-import vale8 from '../assets/gallery/Vale_8.jpg'
-import vale9 from '../assets/gallery/Vale_9.jpg'
-import valeFam from '../assets/gallery/Vale_Fam.jpg'
-import valeHermano from '../assets/gallery/Vale_Hermano.jpg'
-import valeMama from '../assets/gallery/Vale_Mama.jpg'
-import valePapa from '../assets/gallery/Vale_Papa.jpg'
+// Importar las 9 fotos de Camila
+import cami1 from '../assets/gallery/1.png'
+import cami2 from '../assets/gallery/2.png'
+import cami3 from '../assets/gallery/3.png'
+import cami4 from '../assets/gallery/4.png'
+import cami5 from '../assets/gallery/5.png'
+import cami6 from '../assets/gallery/6.png'
+import cami7 from '../assets/gallery/7.png'
+import cami8 from '../assets/gallery/8.png'
+import cami9 from '../assets/gallery/9.png'
 
-const photos = [vale1, vale2, vale3, vale4, vale5, vale6, vale7, vale8, vale9, valeFam, valeHermano, valeMama, valePapa]
+const photos = [cami1, cami2, cami3, cami4, cami5, cami6, cami7, cami8, cami9]
 ---
 
-<section id="gallery" class="py-20 md:py-28 px-4" style="background-color: #F0F8FF;">
+<section id="gallery" class="py-20 md:py-28 px-4" style="background-color: #fbf5f2;">
 	<div class="max-w-5xl mx-auto">
 		<h2 class="font-serif text-3xl md:text-4xl text-primary-800 text-center mb-10 reveal">
 			Galería
 		</h2>
 
-		<!-- Grid de fotos -->
-		<div class="columns-2 md:columns-3 lg:columns-4 gap-3 space-y-3">
+		<!-- Carrusel: scroll-snap horizontal, una foto a la vez -->
+		<div id="carousel" class="carousel-track flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 pb-4 -mx-4 px-4">
 			{photos.map((photo, i) => (
 				<button
-					class="gallery-item block w-full rounded-2xl overflow-hidden shadow-md hover:scale-[1.03] hover:shadow-lg transition-all duration-300 break-inside-avoid cursor-pointer border-0 p-0 bg-transparent"
+					class="carousel-slide snap-center shrink-0 w-full md:w-[70%] lg:w-[55%] mx-auto rounded-2xl overflow-hidden shadow-md cursor-pointer border-0 p-0 bg-transparent"
 					data-index={i}
 					type="button"
 				>
 					<Image
 						src={photo}
-						alt={`Foto de Ana Valeria ${i + 1}`}
-						width={400}
+						alt={`Foto de Camila Isabella ${i + 1}`}
+						width={800}
 						quality={80}
 						class="w-full h-auto object-cover"
-						loading={i < 4 ? 'eager' : 'lazy'}
+						loading={i < 2 ? 'eager' : 'lazy'}
 					/>
 				</button>
+			))}
+		</div>
+
+		<!-- Indicadores (dots) -->
+		<div id="carousel-dots" class="flex justify-center gap-2 mt-6">
+			{photos.map((_, i) => (
+				<button
+					class="carousel-dot w-2 h-2 rounded-full bg-primary-300 transition-all duration-300 cursor-pointer border-0 p-0"
+					data-index={i}
+					type="button"
+					aria-label={`Ir a foto ${i + 1}`}
+				/>
 			))}
 		</div>
 	</div>
@@ -77,31 +85,86 @@ const photos = [vale1, vale2, vale3, vale4, vale5, vale6, vale7, vale8, vale9, v
 	</dialog>
 </section>
 
+<style>
+	/* Oculta scrollbar nativa del carrusel manteniendo funcionalidad */
+	.carousel-track {
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+	.carousel-track::-webkit-scrollbar {
+		display: none;
+	}
+	/* Dot activo: más ancho y oscuro para indicar posición */
+	.carousel-dot.is-active {
+		width: 1.5rem;
+		background-color: rgb(151 113 80); /* primary-700 aprox */
+	}
+</style>
+
 <script>
-	// Lightbox controlado con vanilla JS y <dialog> nativo
+	// Referencias del carrusel y dots
+	const track = document.getElementById('carousel') as HTMLDivElement
+	const slides = Array.from(document.querySelectorAll('.carousel-slide')) as HTMLButtonElement[]
+	const dots = Array.from(document.querySelectorAll('.carousel-dot')) as HTMLButtonElement[]
+
+	// Marca el dot correspondiente según el slide más visible
+	function updateActiveDot() {
+		const trackRect = track.getBoundingClientRect()
+		const trackCenter = trackRect.left + trackRect.width / 2
+		let closestIndex = 0
+		let minDistance = Infinity
+		slides.forEach((slide, i) => {
+			const rect = slide.getBoundingClientRect()
+			const slideCenter = rect.left + rect.width / 2
+			const distance = Math.abs(slideCenter - trackCenter)
+			if (distance < minDistance) {
+				minDistance = distance
+				closestIndex = i
+			}
+		})
+		dots.forEach((dot, i) => dot.classList.toggle('is-active', i === closestIndex))
+	}
+
+	// Actualiza dots al hacer scroll (con debounce vía rAF para no saturar)
+	let scrollTimeout: number
+	track.addEventListener('scroll', () => {
+		cancelAnimationFrame(scrollTimeout)
+		scrollTimeout = requestAnimationFrame(updateActiveDot)
+	})
+
+	// Click en dot navega al slide correspondiente
+	dots.forEach((dot, i) => {
+		dot.addEventListener('click', () => {
+			slides[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+		})
+	})
+
+	// Estado inicial del dot activo
+	updateActiveDot()
+
+	// --- Lightbox ---
 	const dialog = document.getElementById('lightbox') as HTMLDialogElement
 	const img = document.getElementById('lightbox-img') as HTMLImageElement
-	const items = document.querySelectorAll('.gallery-item')
 	let currentIndex = 0
 
-	// Obtener las URLs originales de las imágenes del grid
+	// Guardar las URLs originales de las imágenes
 	const sources: string[] = []
-	items.forEach((item) => {
-		const imgEl = item.querySelector('img')
+	slides.forEach((slide) => {
+		const imgEl = slide.querySelector('img')
 		if (imgEl) sources.push(imgEl.src)
 	})
 
-	// Mostrar imagen en el lightbox
+	// Mostrar imagen en el lightbox (con wrap-around)
 	function showImage(index: number) {
 		currentIndex = ((index % sources.length) + sources.length) % sources.length
 		img.src = sources[currentIndex]
 		img.alt = `Foto ${currentIndex + 1} de ${sources.length}`
 	}
 
-	// Abrir lightbox al hacer click en una foto
-	items.forEach((item) => {
-		item.addEventListener('click', () => {
-			const index = Number(item.getAttribute('data-index'))
+	// Abrir lightbox al hacer click en una foto del carrusel
+	slides.forEach((slide) => {
+		slide.addEventListener('click', () => {
+			const index = Number(slide.getAttribute('data-index'))
 			showImage(index)
 			dialog.showModal()
 		})
@@ -110,14 +173,14 @@ const photos = [vale1, vale2, vale3, vale4, vale5, vale6, vale7, vale8, vale9, v
 	// Cerrar con botón X
 	document.getElementById('lightbox-close')?.addEventListener('click', () => dialog.close())
 
-	// Cerrar al hacer click en el fondo oscuro
+	// Cerrar al hacer click fuera de la imagen
 	dialog.addEventListener('click', (e) => {
 		if (e.target === dialog || (e.target as HTMLElement).closest('#lightbox > div') === e.target) {
 			dialog.close()
 		}
 	})
 
-	// Navegación prev/next
+	// Navegación prev/next dentro del lightbox
 	document.getElementById('lightbox-prev')?.addEventListener('click', (e) => {
 		e.stopPropagation()
 		showImage(currentIndex - 1)
@@ -127,7 +190,7 @@ const photos = [vale1, vale2, vale3, vale4, vale5, vale6, vale7, vale8, vale9, v
 		showImage(currentIndex + 1)
 	})
 
-	// Navegación con teclado
+	// Navegación con teclado (flechas izquierda/derecha)
 	dialog.addEventListener('keydown', (e) => {
 		if (e.key === 'ArrowLeft') showImage(currentIndex - 1)
 		if (e.key === 'ArrowRight') showImage(currentIndex + 1)

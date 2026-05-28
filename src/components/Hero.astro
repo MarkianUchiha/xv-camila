@@ -1,6 +1,6 @@
 ---
-// Sección Hero: nombre, subtítulo, countdown y mariposas flotantes
-import Butterflies from './Butterflies.astro'
+// Sección Hero: nombre, subtítulo, countdown y estrellas glitter emergentes
+import Stars from './Stars.astro'
 import Countdown from './Countdown.tsx'
 ---
 
@@ -9,15 +9,15 @@ import Countdown from './Countdown.tsx'
 	class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
 	style="min-height: 100svh;"
 >
-	<!-- Fondo: gradiente azul cielo a blanco -->
+	<!-- Fondo: dusty rose sólido de la paleta Blush & Gold Luxe -->
 	<div
 		class="absolute inset-0 -z-10"
-		style="background: linear-gradient(180deg, #E0F0FE 0%, #EBF5FF 40%, #FFFFFF 100%);"
+		style="background-color: #F5DDD9;"
 	>
 	</div>
 
-	<!-- Mariposas flotantes -->
-	<Butterflies />
+	<!-- Estrellas glitter que emergen del centro -->
+	<Stars />
 
 	<!-- Contenido central -->
 	<div class="relative z-10 text-center px-6">
@@ -25,12 +25,12 @@ import Countdown from './Countdown.tsx'
 			Mis Quince Años
 		</p>
 
-		<h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-primary-800 italic leading-tight">
-			Ana Valeria
+		<h1 class="font-script text-7xl sm:text-8xl md:text-9xl text-primary-800 leading-none">
+			Camila Isabella
 		</h1>
 
-		<p class="font-sans text-sm md:text-base text-primary-600/80 mt-3">
-			16 de Mayo de 2026
+		<p class="font-sans text-sm md:text-base text-primary-700 mt-3">
+			18 de Junio de 2026
 		</p>
 
 		<!-- Countdown -->
@@ -41,11 +41,11 @@ import Countdown from './Countdown.tsx'
 
 	<!-- Indicador de scroll -->
 	<div class="absolute bottom-8 z-10 flex flex-col items-center gap-2 animate-bounce">
-		<span class="text-xs font-display tracking-widest text-primary-500/60 uppercase">
+		<span class="text-xs font-display tracking-widest text-primary-700/80 uppercase">
 			Desliza
 		</span>
 		<svg
-			class="w-5 h-5 text-primary-400/50"
+			class="w-5 h-5 text-primary-700/60"
 			fill="none"
 			stroke="currentColor"
 			stroke-width="2"

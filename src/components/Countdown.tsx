@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
-// Fecha objetivo: 16 de mayo de 2026 a las 18:00 hrs (CST / America/Mexico_City)
-const TARGET_DATE = new Date('2026-05-16T18:00:00-06:00')
+// Fecha objetivo: 18 de junio de 2026 a las 19:00 hrs (CST / America/Mexico_City)
+const TARGET_DATE = new Date('2026-06-18T19:00:00-06:00')
 
 interface TimeLeft {
 	days: number
@@ -30,12 +30,12 @@ function TimeUnit({ value, label }: { value: number; label: string }) {
 	return (
 		<div className="flex flex-col items-center px-3 md:px-5">
 			<span
-				className="text-4xl md:text-5xl font-serif text-primary-800 tabular-nums leading-none"
+				className="text-4xl md:text-5xl font-serif text-gold-700 tabular-nums leading-none"
 				style={{ fontVariantNumeric: 'tabular-nums' }}
 			>
 				{String(value).padStart(2, '0')}
 			</span>
-			<span className="text-[10px] md:text-xs font-display uppercase tracking-[0.2em] text-primary-600 mt-2">
+			<span className="text-[10px] md:text-xs font-display uppercase tracking-[0.2em] text-gold-500 mt-2">
 				{label}
 			</span>
 		</div>

@@ -2,33 +2,35 @@
 
 /* === Tema personalizado con Tailwind CSS 4 === */
 @theme {
-	/* Colores del proyecto */
-	--color-primary-50: #f0f8ff;
-	--color-primary-100: #e0f0fe;
-	--color-primary-200: #bae0fd;
-	--color-primary-300: #87ceeb;
-	--color-primary-400: #5bbcd6;
-	--color-primary-500: #38a3c3;
-	--color-primary-600: #2a83a4;
-	--color-primary-700: #246a85;
-	--color-primary-800: #23586e;
-	--color-primary-900: #214a5c;
+	/* Paleta Blush & Gold Luxe: blush → taupe (light → dark) */
+	--color-primary-50: #fbf5f2;
+	--color-primary-100: #f5ddd9;
+	--color-primary-200: #efe0ce;
+	--color-primary-300: #e0c0b8;
+	--color-primary-400: #d3a8a2;
+	--color-primary-500: #c99a95;
+	--color-primary-600: #b59289;
+	--color-primary-700: #a88a7e;
+	--color-primary-800: #8b7064;
+	--color-primary-900: #6d5749;
 
-	--color-gold-50: #fdf8e8;
-	--color-gold-100: #f9eec5;
-	--color-gold-200: #f3dc8b;
-	--color-gold-300: #ecc94b;
-	--color-gold-400: #d4af37;
-	--color-gold-500: #c9a84c;
-	--color-gold-600: #b8860b;
-	--color-gold-700: #946b08;
-	--color-gold-800: #7a570d;
-	--color-gold-900: #674811;
+	/* Dorado metálico: ajustado alrededor del gold-500 = #b89968 */
+	--color-gold-50: #faf6ec;
+	--color-gold-100: #f2e8cc;
+	--color-gold-200: #e5d3a3;
+	--color-gold-300: #d6bb7b;
+	--color-gold-400: #c9a86a;
+	--color-gold-500: #b89968;
+	--color-gold-600: #a28557;
+	--color-gold-700: #8a6f48;
+	--color-gold-800: #6f593a;
+	--color-gold-900: #5a482f;
 
 	/* Fuentes */
-	--font-serif: 'Playfair Display', Georgia, serif;
-	--font-sans: 'Inter', system-ui, sans-serif;
-	--font-display: 'Montserrat', 'Inter', sans-serif;
+	--font-script: 'The Nautigal', cursive; /* script caligráfica solo para nombre + firma */
+	--font-serif: 'Poppins', system-ui, sans-serif; /* nombre conservado por retro-compat; ahora apunta a Poppins */
+	--font-sans: 'Poppins', system-ui, sans-serif;
+	--font-display: 'Google Sans', 'Poppins', sans-serif;
 }
 
 /* === Glassmorphismo - utilidad reutilizable === */

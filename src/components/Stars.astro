@@ -1,0 +1,132 @@
+---
+// Estrellas con efecto glitter que emergen del centro hacia los bordes
+// Cada estrella tiene posición, tamaño, color y delays aleatorios calculados en build-time
+
+const COUNT = 32
+
+// Generar posiciones distribuidas en todas las direcciones desde el centro
+const stars = Array.from({ length: COUNT }, (_, i) => {
+	// Ángulo distribuido (no totalmente random) + jitter para evitar huecos
+	const baseAngle = (i / COUNT) * Math.PI * 2
+	const angle = baseAngle + (Math.random() - 0.5) * 0.6
+	// Distancia desde el centro en vmax (cubre hasta cerca de los bordes)
+	const distance = 18 + Math.random() * 38
+	const tx = Math.cos(angle) * distance
+	const ty = Math.sin(angle) * distance
+
+	return {
+		tx,
+		ty,
+		size: 8 + Math.random() * 24, // 8-32px
+		color: Math.random() > 0.5 ? 'gold' : 'rose',
+		rotation: Math.random() * 360,
+		entryDelay: Math.random() * 1.8, // 0-1.8s para el stagger de aparición
+		twinkleDelay: 2 + Math.random() * 2, // arranca twinkle tras 2-4s
+		twinkleDuration: 2 + Math.random() * 2.5, // periodo 2-4.5s
+	}
+})
+---
+
+<div class="stars-container" aria-hidden="true">
+	{stars.map((s) => (
+		<div
+			class={`star star--${s.color}`}
+			style={`
+				--tx: ${s.tx}vmax;
+				--ty: ${s.ty}vmax;
+				--size: ${s.size}px;
+				--rotation: ${s.rotation}deg;
+				--entry-delay: ${s.entryDelay}s;
+				--twinkle-delay: ${s.twinkleDelay}s;
+				--twinkle-duration: ${s.twinkleDuration}s;
+			`}
+		>
+			<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+				{/* Estrella 4-puntas (sparkle) con highlight central para shine */}
+				<path d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z" fill="currentColor" />
+				<circle cx="12" cy="12" r="1.8" fill="rgba(255,255,255,0.85)" />
+			</svg>
+		</div>
+	))}
+</div>
+
+<style>
+	.stars-container {
+		position: absolute;
+		inset: 0;
+		overflow: hidden;
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	.star {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: var(--size);
+		height: var(--size);
+		/* Empieza en el centro (escala 0) y se anima hacia su destino */
+		transform: translate(-50%, -50%) scale(0);
+		opacity: 0;
+		/* Dos animaciones encadenadas: emerge (una vez) + twinkle (infinito) */
+		animation:
+			starEmerge 2.2s cubic-bezier(0.22, 1, 0.36, 1) var(--entry-delay) forwards,
+			starTwinkle var(--twinkle-duration) ease-in-out var(--twinkle-delay) infinite;
+	}
+
+	/* El glow se aplica al SVG (hijo) para no chocar con el brightness del twinkle (en .star) */
+	.star svg {
+		width: 100%;
+		height: 100%;
+		display: block;
+	}
+	.star--gold svg {
+		filter: drop-shadow(0 0 6px rgba(184, 153, 104, 0.75));
+	}
+	.star--rose svg {
+		filter: drop-shadow(0 0 6px rgba(201, 154, 149, 0.75));
+	}
+
+	/* Animación de emergencia: del centro hacia su posición destino */
+	@keyframes starEmerge {
+		0% {
+			transform: translate(-50%, -50%) scale(0) rotate(0deg);
+			opacity: 0;
+		}
+		30% {
+			opacity: 1;
+		}
+		100% {
+			transform:
+				translate(calc(-50% + var(--tx)), calc(-50% + var(--ty)))
+				scale(1)
+				rotate(var(--rotation));
+			opacity: 1;
+		}
+	}
+
+	/* Animación de twinkle (pulso de brillo + opacidad sutil) */
+	@keyframes starTwinkle {
+		0%, 100% {
+			filter: brightness(1);
+			opacity: 0.85;
+		}
+		50% {
+			filter: brightness(1.5);
+			opacity: 1;
+		}
+	}
+
+	/* === Colores base de la estrella === */
+	.star--gold { color: #d6bb7b; }
+	.star--rose { color: #e0c0b8; }
+
+	/* Respetar preferencia de reducción de movimiento */
+	@media (prefers-reduced-motion: reduce) {
+		.star {
+			animation: none;
+			opacity: 0.8;
+			transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1) rotate(var(--rotation));
+		}
+	}
+</style>

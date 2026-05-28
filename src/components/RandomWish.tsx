@@ -69,7 +69,7 @@ export default function RandomWish() {
 	const msg = messages[index]
 
 	return (
-		<div className="max-w-lg mx-auto mt-8 rounded-2xl p-6" style={{ backgroundColor: '#F0F8FF' }}>
+		<div className="max-w-lg mx-auto mt-8 rounded-2xl p-6" style={{ backgroundColor: '#fbf5f2' }}>
 			<div
 				className="glass p-5 text-center transition-opacity duration-400"
 				style={{ opacity: isVisible ? 1 : 0 }}

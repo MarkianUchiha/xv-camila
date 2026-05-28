@@ -66,7 +66,7 @@ export default function GuestBook() {
 
 				<div className="mb-4">
 					<textarea
-						placeholder="Escribe un deseo para Ana Valeria..."
+						placeholder="Escribe un deseo para Camila Isabella..."
 						value={message}
 						onChange={e => setMessage(e.target.value)}
 						maxLength={500}

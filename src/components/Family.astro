@@ -1,32 +1,20 @@
 ---
-// Sección Familia: cards con flip al tocar - foto adelante, mensaje atrás
-import { Image } from 'astro:assets'
-
-import mamaPhoto from '../assets/family/Mama.jpg'
-import papaPhoto from '../assets/family/Papa.jpg'
-import padrinoPhoto from '../assets/family/Padrino.jpeg'
+// Sección Familia: cards con monograma + mensaje siempre visible (sin fotos)
 
 const members = [
 	{
-		photo: papaPhoto,
-		name: 'Dr. Christian Alejandro\nMacías Conde',
+		initials: 'JR',
+		name: 'José Luis\nRoacho Corral',
 		role: 'Papá',
-		message: 'Mi cariño por ti crece junto con cada paso que das hacia tu independencia y tus propios sueños. ¡Te amo hija!',
+		message: 'Te amo con mi corazón y deseo que cada sueño tuyo se haga realidad. Tus 15 años marcan una etapa hermosa; disfrútala, sonríe, sé agradecida y nunca dejes de brillar.',
 	},
 	{
-		photo: mamaPhoto,
-		name: 'C.P. Asminda\nIbarra Flores',
+		initials: 'RA',
+		name: 'Reyna Ascencio\nPedro',
 		role: 'Mamá',
-		message: 'Siempre quise ser mamá de una niña, pero cuando te tuve en mis brazos entendí que el amor de mamá es infinito, dulce e incondicional, eres mi mayor orgullo mi reina hermosa',
+		message: 'Mi niña hermosa, sabes que siempre estaré para ti, oraré todos los días para que seas feliz, espero que cumplas todas tus metas y que siempre cuentes con la bendición de Dios. Tu familia te ama, mi preciosa Quinceañera, nunca lo olvides. Me siento orgullosa de ti.',
 	},
 ]
-
-const padrino = {
-	photo: padrinoPhoto,
-	name: 'Ing. Gustavo\nMorán Soto',
-	role: 'Padrino',
-	message: 'Acompañar a Vale desde que nació hasta que me escogiera como su padrino de XV años es de los mejores regalos que me ha dado la vida.',
-}
 ---
 
 <section id="family" class="py-20 md:py-28 px-6 bg-white">
@@ -44,104 +32,39 @@ const padrino = {
 		<p class="font-display text-[11px] tracking-[0.3em] text-gold-500 uppercase mb-6">
 			Mis Padres
 		</p>
-		<div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-14">
+		<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 			{members.map((m, i) => (
-				<div class="flip-card w-full sm:w-56 cursor-pointer reveal" data-delay={i + 1} style="perspective: 1000px;">
-					<div class="flip-card-inner relative w-full transition-transform duration-700" style="transform-style: preserve-3d;">
-						<!-- Frente -->
-						<div class="flip-card-front glass-strong overflow-hidden" style="backface-visibility: hidden;">
-							<div class="aspect-[3/4] overflow-hidden">
-								<Image
-									src={m.photo}
-									alt={m.name.replace('\n', ' ')}
-									width={300}
-									class="w-full h-full object-cover object-top"
-								/>
-							</div>
-							<div class="p-4 text-center">
-								<p class="font-serif text-sm text-primary-800 leading-snug" set:html={m.name.replace('\n', '<br/>')} />
-								<span class="inline-block font-display text-[10px] tracking-[0.25em] text-gold-500 uppercase mt-2">
-									{m.role}
-								</span>
-							</div>
-						</div>
-						<!-- Atrás -->
-						<div class="flip-card-back absolute inset-0 glass-strong overflow-hidden flex flex-col items-center justify-center p-6" style="backface-visibility: hidden; transform: rotateY(180deg);">
-							<span class="font-display text-[10px] tracking-[0.25em] text-gold-500 uppercase mb-4">
-								{m.role}
-							</span>
-							<p class="font-serif text-sm text-primary-800 italic leading-relaxed">
-								"{m.message}"
-							</p>
-							<!-- Mariposa decorativa -->
-							<svg class="w-6 h-6 text-gold-400/40 mt-4" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-								<path d="M50 50 C30 20, 10 20, 10 45 C10 60, 30 70, 50 50 Z" fill="currentColor" opacity="0.8"/>
-								<path d="M50 50 C70 20, 90 20, 90 45 C90 60, 70 70, 50 50 Z" fill="currentColor" opacity="0.8"/>
-								<path d="M50 50 C35 60, 20 80, 25 90 C30 95, 45 80, 50 50 Z" fill="currentColor" opacity="0.6"/>
-								<path d="M50 50 C65 60, 80 80, 75 90 C70 95, 55 80, 50 50 Z" fill="currentColor" opacity="0.6"/>
-							</svg>
-						</div>
+				<div class="glass-strong p-8 reveal flex flex-col items-center" data-delay={i + 1}>
+					<!-- Monograma: círculo con iniciales en script -->
+					<div class="w-20 h-20 rounded-full flex items-center justify-center border-2 border-gold-300 mb-5" style="background-color: #fbf5f2;">
+						<span class="font-script text-5xl text-gold-700 leading-none -translate-y-1">
+							{m.initials}
+						</span>
 					</div>
+
+					<!-- Nombre -->
+					<p class="font-serif text-sm md:text-base text-primary-800 leading-snug" set:html={m.name.replace('\n', '<br/>')} />
+
+					<!-- Rol -->
+					<span class="font-display text-[10px] tracking-[0.25em] text-gold-500 uppercase mt-2 mb-4">
+						{m.role}
+					</span>
+
+					<!-- Divider dorado -->
+					<div class="w-10 h-px bg-gold-400/50 mb-4"></div>
+
+					<!-- Mensaje personal -->
+					<p class="font-serif text-sm text-primary-700 italic leading-relaxed">
+						"{m.message}"
+					</p>
+
+					<!-- Estrella decorativa -->
+					<svg class="w-5 h-5 text-gold-400/50 mt-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+						<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+					</svg>
 				</div>
 			))}
 		</div>
 
-		<!-- Padrino -->
-		<p class="font-display text-[11px] tracking-[0.3em] text-gold-500 uppercase mb-6">
-			Mi Padrino
-		</p>
-		<div class="flex justify-center">
-			<div class="flip-card w-full sm:w-56 cursor-pointer reveal" data-delay="3" style="perspective: 1000px;">
-				<div class="flip-card-inner relative w-full transition-transform duration-700" style="transform-style: preserve-3d;">
-					<!-- Frente -->
-					<div class="flip-card-front glass-strong overflow-hidden" style="backface-visibility: hidden;">
-						<div class="aspect-[3/4] overflow-hidden">
-							<Image
-								src={padrino.photo}
-								alt={padrino.name.replace('\n', ' ')}
-								width={300}
-								class="w-full h-full object-cover object-top"
-							/>
-						</div>
-						<div class="p-4 text-center">
-							<p class="font-serif text-sm text-primary-800 leading-snug" set:html={padrino.name.replace('\n', '<br/>')} />
-							<span class="inline-block font-display text-[10px] tracking-[0.25em] text-gold-500 uppercase mt-2">
-								{padrino.role}
-							</span>
-						</div>
-					</div>
-					<!-- Atrás -->
-					<div class="flip-card-back absolute inset-0 glass-strong overflow-hidden flex flex-col items-center justify-center p-6" style="backface-visibility: hidden; transform: rotateY(180deg);">
-						<span class="font-display text-[10px] tracking-[0.25em] text-gold-500 uppercase mb-4">
-							{padrino.role}
-						</span>
-						<p class="font-serif text-sm text-primary-800 italic leading-relaxed">
-							"{padrino.message}"
-						</p>
-						<svg class="w-6 h-6 text-gold-400/40 mt-4" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-							<path d="M50 50 C30 20, 10 20, 10 45 C10 60, 30 70, 50 50 Z" fill="currentColor" opacity="0.8"/>
-							<path d="M50 50 C70 20, 90 20, 90 45 C90 60, 70 70, 50 50 Z" fill="currentColor" opacity="0.8"/>
-							<path d="M50 50 C35 60, 20 80, 25 90 C30 95, 45 80, 50 50 Z" fill="currentColor" opacity="0.6"/>
-							<path d="M50 50 C65 60, 80 80, 75 90 C70 95, 55 80, 50 50 Z" fill="currentColor" opacity="0.6"/>
-						</svg>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<p class="font-display text-[10px] tracking-widest text-primary-400 mt-10 uppercase">
-			Toca una tarjeta para ver el mensaje
-		</p>
 	</div>
 </section>
-
-<script>
-	// Flip de cards al hacer click/tap
-	document.querySelectorAll('.flip-card').forEach((card) => {
-		card.addEventListener('click', () => {
-			const inner = card.querySelector('.flip-card-inner') as HTMLElement
-			const isFlipped = inner.style.transform === 'rotateY(180deg)'
-			inner.style.transform = isFlipped ? 'rotateY(0deg)' : 'rotateY(180deg)'
-		})
-	})
-</script>

@@ -1,6 +1,8 @@
-# XV Ana Valeria — Invitación Digital
+# XV Camila Isabella — Invitación Digital
 
-Invitación digital web para XV años. Single page, mobile-first, temática elegante con glassmorphismo y mariposas.
+Invitación digital web para los XV años de Camila Isabella. Single page, mobile-first, temática elegante con glassmorphismo y mariposas.
+
+**Fecha del evento:** 18 de junio de 2026, 19:00 hrs · Durango.
 
 ## Stack
 
@@ -60,8 +62,8 @@ Supabase Dashboard → **Table Editor → messages** → seleccionar filas → e
 Supabase Dashboard → **Storage → event-photos** → seleccionar archivos → eliminar.
 
 ### Páginas privadas (solo para el cliente)
-- **Muro de mensajes:** `/mensajes?key=anavaleria2026`
-- **Galería de fotos:** `/fotos?key=anavaleria2026`
+- **Muro de mensajes:** `/mensajes?key=camila2026`
+- **Galería de fotos:** `/fotos?key=camila2026`
 
 ## Estructura del proyecto
 
@@ -75,8 +77,9 @@ src/
 └── assets/           # Imágenes procesadas por Astro
 public/
 ├── audio/            # Música de fondo
-├── gallery/          # Fotos accesibles directamente
-└── og-image.jpg      # Imagen para compartir en redes
+├── splash/           # Imagen de la pantalla de bienvenida
+├── favicon.svg       # Favicon (flor dorada)
+└── og-image.png      # Imagen para compartir en redes
 ```
 
 ## Reutilizar para otra invitación (Fork)
@@ -90,18 +93,18 @@ Para crear otra invitación a partir de esta:
    - `Hero.astro` — nombre, fecha
    - `Countdown.tsx` — fecha del evento
    - `Invitation.astro` — texto de invitación
-   - `Family.astro` — fotos, nombres, mensajes
+   - `Family.astro` — nombres, roles, mensajes
    - `Timeline.astro` — eventos y horarios
    - `DressCode.astro` — código de vestimenta
    - `Gifts.astro` — link mesa de regalos
    - `Location.astro` — direcciones y mapas
    - `SplashScreen.tsx` — foto de portada
-   - `index.astro` — sección de confirmación (número WhatsApp)
-5. **Fotos**: reemplazar en `src/assets/gallery/` y `src/assets/family/`
+   - `index.astro` — sección de confirmación (número WhatsApp) y fecha en la que se desbloquea "Subir Fotos"
+5. **Fotos**: reemplazar en `src/assets/gallery/`
 6. **Música**: reemplazar en `public/audio/` y actualizar ruta en `MusicPlayer.tsx`
 7. **Colores**: editar `src/styles/global.css` (variables `@theme`)
-8. **SEO**: actualizar `Layout.astro` (títulos, descripción, og-image)
-9. **Key privada**: cambiar `anavaleria2026` en `MessageWall.tsx` y `PhotoGallery.tsx`
+8. **SEO**: actualizar `Layout.astro` (`siteUrl`, títulos, descripción, og-image)
+9. **Key privada**: cambiar `camila2026` en `MessageWall.tsx` y `PhotoGallery.tsx`
 10. **Deploy**: conectar a Netlify con las nuevas env vars
 
 ---

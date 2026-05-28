@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 
-const SECRET_KEY = 'anavaleria2026'
+const SECRET_KEY = 'camila2026'
 
 interface PhotoFile {
 	name: string
@@ -82,7 +82,7 @@ export default function PhotoGallery() {
 	}
 
 	return (
-		<div className="min-h-screen py-16 px-6" style={{ backgroundColor: '#F0F8FF' }}>
+		<div className="min-h-screen py-16 px-6" style={{ backgroundColor: '#fbf5f2' }}>
 			<div className="max-w-4xl mx-auto">
 				<p className="font-display text-xs tracking-[0.35em] text-gold-500 uppercase text-center mb-2">
 					Recuerdos del evento

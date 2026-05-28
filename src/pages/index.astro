@@ -17,7 +17,7 @@ import RandomWish from '../components/RandomWish.tsx'
 import PhotoUpload from '../components/PhotoUpload.tsx'
 ---
 
-<Layout title="XV Años Ana Valeria | 16 de Mayo 2026">
+<Layout title="XV Años Camila Isabella | 18 de Junio 2026">
 	<!-- Splash de bienvenida + reproductor de música -->
 	<SplashScreen client:load />
 	<MusicPlayer client:load />
@@ -40,10 +40,10 @@ import PhotoUpload from '../components/PhotoUpload.tsx'
 		<section id="guestbook" class="py-16 px-6 bg-white">
 			<div class="reveal">
 				<h2 class="font-serif text-3xl sm:text-4xl text-primary-800 italic text-center mb-2">
-					Libro de Visitas
+					Mensajes de Felicitación
 				</h2>
 				<p class="font-sans text-sm text-primary-600 text-center mb-10">
-					Déjale tus mejores deseos a Valeria
+					Déjale tus mejores deseos a Camila
 				</p>
 			</div>
 			<GuestBook client:visible />
@@ -61,7 +61,7 @@ import PhotoUpload from '../components/PhotoUpload.tsx'
 					Confirma tu asistencia para recibir tus pases de acceso
 				</p>
 				<a
-					href="https://wa.me/526181130026?text=Hola%2C%20quiero%20confirmar%20mi%20asistencia%20a%20los%20XV%20de%20Ana%20Valeria"
+					href="https://wa.me/526181130026?text=Hola%2C%20quiero%20confirmar%20mi%20asistencia%20a%20los%20XV%20de%20Camila%20Isabella"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="inline-block px-10 py-3 rounded-full font-display text-sm tracking-widest uppercase text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
@@ -72,7 +72,8 @@ import PhotoUpload from '../components/PhotoUpload.tsx'
 			</div>
 		</section>
 
-		<section id="photos" class="py-16 px-6" style="background-color: #F0F8FF;">
+		<!-- Sección de subir fotos: oculta hasta el día del evento (18 jun 2026 19:00 CST) -->
+		<section id="photos" class="py-16 px-6" style="display: none; background-color: #fbf5f2;" data-event-time="2026-06-18T19:00:00-06:00">
 			<div class="reveal">
 				<p class="font-display text-xs tracking-[0.35em] text-gold-500 uppercase text-center mb-2">
 					Comparte tus momentos
@@ -81,11 +82,22 @@ import PhotoUpload from '../components/PhotoUpload.tsx'
 					Sube tus Fotos
 				</h2>
 				<p class="font-sans text-sm text-primary-600 text-center mb-10">
-					Sube los momentos capturados durante la fiesta para que Ana Valeria pueda verlos
+					Sube los momentos capturados durante la fiesta para que Camila pueda verlos
 				</p>
 			</div>
 			<PhotoUpload client:visible />
 		</section>
+
+		<!-- Mostrar la sección de fotos solo a partir del inicio del evento -->
+		<script is:inline>
+			const photoSection = document.getElementById('photos')
+			if (photoSection) {
+				const target = new Date(photoSection.dataset.eventTime).getTime()
+				if (Date.now() >= target) {
+					photoSection.style.display = ''
+				}
+			}
+		</script>
 
 		<Footer />
 	</main>

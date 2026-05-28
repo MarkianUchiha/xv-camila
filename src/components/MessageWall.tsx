@@ -18,7 +18,7 @@ function formatDate(dateStr: string): string {
 	}).format(new Date(dateStr))
 }
 
-const SECRET_KEY = 'anavaleria2026'
+const SECRET_KEY = 'camila2026'
 
 export default function MessageWall() {
 	const [messages, setMessages] = useState<Message[]>([])
@@ -73,7 +73,7 @@ export default function MessageWall() {
 	}
 
 	return (
-		<div className="min-h-screen py-16 px-6" style={{ backgroundColor: '#F0F8FF' }}>
+		<div className="min-h-screen py-16 px-6" style={{ backgroundColor: '#fbf5f2' }}>
 			<div className="max-w-2xl mx-auto">
 				<p className="font-display text-xs tracking-[0.35em] text-gold-500 uppercase text-center mb-2">
 					Tus invitados te escribieron
