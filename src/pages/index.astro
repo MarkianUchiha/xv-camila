@@ -72,8 +72,8 @@ import PhotoUpload from '../components/PhotoUpload.tsx'
 			</div>
 		</section>
 
-		<!-- Sección de subir fotos: oculta hasta el día del evento (18 jun 2026 19:00 CST) -->
-		<section id="photos" class="py-16 px-6" style="display: none; background-color: #fbf5f2;" data-event-time="2026-06-18T19:00:00-06:00">
+		<!-- Sección de subir fotos: oculta hasta 24h antes del evento (17 jun 2026 19:00 CST) -->
+		<section id="photos" class="py-16 px-6" style="display: none; background-color: #fbf5f2;" data-reveal-time="2026-06-17T19:00:00-06:00">
 			<div class="reveal">
 				<p class="font-display text-xs tracking-[0.35em] text-gold-500 uppercase text-center mb-2">
 					Comparte tus momentos
@@ -88,11 +88,11 @@ import PhotoUpload from '../components/PhotoUpload.tsx'
 			<PhotoUpload client:visible />
 		</section>
 
-		<!-- Mostrar la sección de fotos solo a partir del inicio del evento -->
+		<!-- Mostrar la sección de fotos 24h antes del evento -->
 		<script is:inline>
 			const photoSection = document.getElementById('photos')
 			if (photoSection) {
-				const target = new Date(photoSection.dataset.eventTime).getTime()
+				const target = new Date(photoSection.dataset.revealTime).getTime()
 				if (Date.now() >= target) {
 					photoSection.style.display = ''
 				}
